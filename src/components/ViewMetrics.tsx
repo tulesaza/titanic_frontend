@@ -1,10 +1,10 @@
 import * as React from "react";
-import {Button} from "@material-ui/core";
-import {ChildrensProps} from "./UploadDataset";
-import {restClient} from "../index";
-import {States} from "./MainPage";
-import {ChartOptions} from "chart.js";
-import {Pie} from 'react-chartjs-2'
+import { Button } from "@material-ui/core";
+import { ChildrensProps } from "./UploadDataset";
+import { restClient } from "../index";
+import { States } from "./MainPage";
+import { ChartOptions } from "chart.js";
+import { Pie, Scatter } from "react-chartjs-2";
 
 interface ViewMetricsState {
   loading: boolean;
@@ -16,9 +16,9 @@ export class ViewMetrics extends React.Component<
 > {
   constructor(props: ChildrensProps) {
     super(props);
-    this.state = { loading: true };
+    this.state = { loading: false };
   }
-
+  /**
   componentDidMount = () => {
     restClient.getMetricsData().then(
       response => {
@@ -32,40 +32,87 @@ export class ViewMetrics extends React.Component<
       }
     );
   };
-
+*/
   handleReset = () => {
-      restClient.cleanupBackend().then(
-          res => {
-              this.props.nextState(States.UPLOAD)
-          }
-      )
-  }
+    restClient.cleanupBackend().then(res => {
+      this.props.nextState(States.UPLOAD);
+    });
+  };
 
   render() {
-      const data = {
-      labels: [
-        'Red',
-        'Green',
-        'Yellow'
-      ],
-      datasets: [{
-        data: [300, 50, 100],
-        backgroundColor: [
-          '#FF6384',
-          '#36A2EB',
-          '#FFCE56'
-        ],
-        hoverBackgroundColor: [
-          '#FF6384',
-          '#36A2EB',
-          '#FFCE56'
-        ]
-      }]
+    const data = {
+      datasets: [
+        {
+          label: "Random Classifier",
+          data: [
+            {
+              x: 0,
+              y: 0
+            },
+            {
+              x: 1,
+              y: 1
+            }
+          ],
+          borderColor: "black",
+          borderWidth: 1,
+          pointBackgroundColor: ["#000"],
+          pointBorderColor: ["#000"],
+          pointRadius: 3,
+          pointHoverRadius: 3,
+          fill: false,
+          tension: 0,
+          showLine: true
+        }
+      ]
     };
 
     const options: ChartOptions = {
-      legend: {
-        position: 'bottom',
+      tooltips: {
+        callbacks: {
+          title: function(tooltipItem, data) {
+            return "threshold=0.5";
+          },
+          label: function(tooltipItem, data) {
+            return "TP=90,FP=20,TN=29,FN=22";
+          },
+          afterLabel: function(tooltipItem, data) {
+            return "lol3";
+          }
+        },
+        titleFontSize: 14,
+        bodyFontSize: 14,
+        displayColors: false
+      },
+      scales: {
+        xAxes: [
+          {
+            ticks: {
+              beginAtZero: true,
+              suggestedMax: 1
+            },
+            type: "linear",
+            position: "bottom",
+            scaleLabel: {
+              display: true,
+              labelString: "False Positive Rate"
+            }
+          }
+        ],
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true,
+              suggestedMax: 1
+            },
+            type: "linear",
+            position: "bottom",
+            scaleLabel: {
+              display: true,
+              labelString: "True Positive Rate"
+            }
+          }
+        ]
       }
     };
     return this.state.loading ? (
@@ -73,8 +120,8 @@ export class ViewMetrics extends React.Component<
         <label>Loading...</label>
       </div>
     ) : (
-      <div>
-          <Pie data={data} options={options} />
+      <div style={{ height: 900, width: 900, margin: "auto" }}>
+        <Scatter data={data} options={options} />
         <Button onClick={this.handleReset}>Reset</Button>
       </div>
     );
