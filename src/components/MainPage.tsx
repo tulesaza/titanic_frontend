@@ -62,13 +62,15 @@ class MainPage extends React.Component<StyledComponentProps, MainPageState> {
 
   getActualComponent = (): React.ReactElement<any> => {
     switch (this.state.pageState) {
+      /**
       case States.UPLOAD: {
         return <UploadDataset nextState={this.handleChangeMainPageState} />;
       }
       case States.TRAIN: {
         return <TrainModel nextState={this.handleChangeMainPageState} />;
       }
-      case States.VIEW: {
+       */
+      default: {
         return <ViewMetrics nextState={this.handleChangeMainPageState} />;
       }
     }
