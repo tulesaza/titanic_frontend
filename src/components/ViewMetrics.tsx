@@ -70,14 +70,14 @@ export class ViewMetrics extends React.Component<
     const options: ChartOptions = {
       tooltips: {
         callbacks: {
-          title: function(tooltipItem, data) {
+          title: (tooltipItem, data) => {
             return "threshold=0.5";
           },
-          label: function(tooltipItem, data) {
-            return "TP=90,FP=20,TN=29,FN=22";
+          label: (tooltipItem, data) => {
+            return "TP=90|FP=20 "
           },
-          afterLabel: function(tooltipItem, data) {
-            return "lol3";
+          afterLabel: (tooltipItem, data) => {
+            return  "TN=29|FN=22";
           }
         },
         titleFontSize: 14,
