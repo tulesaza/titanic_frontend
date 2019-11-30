@@ -57,7 +57,9 @@ export class UploadDataset extends React.Component<
       <div>
         <label>Upload Your File </label>
         <input type="file" onChange={e => this.handleChange(e.target.files)} />
-        <Button onClick={this.handleSubmit}>Upload</Button>
+        <div style={{margin:10}}>
+        <Button variant="contained" color="primary" onClick={this.handleSubmit}>UPLOAD DATA</Button>
+        </div>
       </div>
     );
   }

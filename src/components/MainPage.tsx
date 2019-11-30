@@ -54,7 +54,7 @@ class MainPage extends React.Component<StyledComponentProps, MainPageState> {
       case States.UPLOAD:
         return " 1. Upload data ";
       case States.TRAIN:
-        return " 2. Train utils ";
+        return " 2. Train model ";
       case States.VIEW:
         return " 3. View graphs ";
     }

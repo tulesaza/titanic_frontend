@@ -37,12 +37,14 @@ export class TrainModel extends React.Component<
   render() {
     return this.state.loading ? (
       <div>
-        <label>Training...</label>
+        <label>Model is Training...</label>
       </div>
     ) : (
       <div>
         <Typography variant="h6">Note: Now just logistic regression is available </Typography>
-        <Button onClick={this.handleClick}>Train</Button>
+          <div style={{margin:10}}>
+            <Button variant="contained" color="primary" onClick={this.handleClick}>TRAIN YOUR MODEL</Button>
+          </div>
       </div>
     );
   }

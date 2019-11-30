@@ -193,7 +193,7 @@ export class ViewMetrics extends React.Component<
     ) : (
       <div style={{ height: 1000, width: 1000, margin: "auto" }}>
         <Scatter data={data} options={options} />
-        <Button onClick={this.handleReset}>Reset</Button>
+        <Button variant="contained" color="secondary" onClick={this.handleReset}>START FROM THE BEGINING</Button>
       </div>
     );
   }
